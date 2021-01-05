@@ -1,46 +1,79 @@
-# Getting Started with Create React App
+## React Tour
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <img alt="Reactour" title="Reactour" src="/logo.svg" width="250">
+</p>
+<p align="center" style="margin-top: 40px">
+  <strong>Tourist Guide</strong> into your React Components
+</p>
+<p align="center">
+  <a href="https://elrumordelaluz.github.io/reactour/">Demo</a>
+</p>
+<p align="center">
+  <a href="https://codesandbox.io/s/6z56m8x18k?module=%2FApp.js">
+    <img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit 6z56m8x18k">
+  </a>
+</p>
 
-## Available Scripts
+### Library
 
-In the project directory, you can run:
+https://github.com/elrumordelaluz/reactour
 
-### `yarn start`
+```zsh
+npm i -S reactour
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```zsh
+npm i -S styled-components@^4.0.0
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### How to use
 
-### `yarn test`
+```tsx
+import React, { useState } from 'react'
+import Tour from 'reactour'
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+const steps = [
+  {
+    selector: '[data-tut="card"]',
+    content: `this is Card`,
+  },
+]
 
-### `yarn build`
+const App = () => {
+  const [isTourOpen, setIsTourOpen] = useState(false)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  const disableBody = (target: any) => {
+    disableBodyScroll(target)
+  }
+  const enableBody = (target: any) => {
+    enableBodyScroll(target)
+  }
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  const openTour = () => {
+    setIsTourOpen(true)
+  }
+  const closeTour = () => {
+    setIsTourOpen(false)
+  }
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  const accentColor = '#5cb7b7'
+  return (
+    <>
+      <Tour
+        accentColor={accentColor}
+        steps={steps}
+        isOpen={isTourOpen}
+        onRequestClose={closeTour}
+        rounded={5}
+        onAfterOpen={disableBody}
+        onBeforeClose={enableBody}
+      />
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+      <div data-tut="card">
+        Card
+      </div>
+    </div>
+  )
+}
+```
